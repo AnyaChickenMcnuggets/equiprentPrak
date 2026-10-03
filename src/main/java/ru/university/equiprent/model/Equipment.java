@@ -34,7 +34,7 @@ public class Equipment {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private EquipmentCategory category;
 
