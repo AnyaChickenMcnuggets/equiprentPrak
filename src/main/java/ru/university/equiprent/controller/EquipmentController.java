@@ -2,13 +2,13 @@ package ru.university.equiprent.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import ru.university.equiprent.api.EquipmentApi;
-import ru.university.equiprent.model.Equipment;
+import ru.university.equiprent.dto.EquipmentRequest;
+import ru.university.equiprent.dto.EquipmentResponse;
 import ru.university.equiprent.service.EquipmentService;
 
 @RequiredArgsConstructor
@@ -16,17 +16,25 @@ import ru.university.equiprent.service.EquipmentService;
 public class EquipmentController implements EquipmentApi {
     private final EquipmentService service;
 
-    
-    public List<Equipment> getAll() {
+    public List<EquipmentResponse> getAll() {
         return service.findAll();
     }
 
-    public Equipment get(Long id) {
+    public EquipmentResponse get(Long id) {
         return service.findById(id);
     }
 
-    public Equipment create(Equipment entity) {
-        return service.create(entity);
+    public EquipmentResponse create(EquipmentRequest request) {
+        return service.create(request);
+    }
+
+    public EquipmentResponse update(EquipmentRequest request, Long id) {
+        return service.update(request, id);
+    }
+
+    public ResponseEntity<Void> delete(Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
